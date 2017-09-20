@@ -45,23 +45,25 @@ router.post('/saveNewTrip', function(req, res) {
   });
 
   if (err) {
-    res.sendStatus(404);
+    res.sendStatus(400);
   } else {
     res.redirect(201, '/viewTrip');
   }
 
-  // User.create({
-  //   // user: user,
-  //   tripTags.push(req.body.tags);
-  //   tripTags: tripTags;
-  // }).then((error, trips) => {
-  //   if (error) {
-  //     console.log(error);
-  //     res.sendStatus(400);
-  //   } else {
-  //     res.sendStatus(201);
-  //   }
-  // });
+    console.log('req.session.passport', req.session.passport)
+//   User.create({
+//     user: req.session.passport.user.id
+//     tripTags.push(req.body.tags);
+//     tripTags: tripTags;
+//   }).then((error, trips) => {
+//     if (error) {
+//       console.log(error);
+//       res.sendStatus(400);
+//     } else {
+//       res.sendStatus(201);
+//     }
+//   });
+
 });
 
 
