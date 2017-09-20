@@ -34,8 +34,8 @@ export default class InputBar extends React.Component {
     this.props.addTagsToParent(this.state.tripName);
   }
 
-	render() {
-   return ( 
+  render() {
+    return ( 
       <div>
        <h2>Nav Bar</h2>
        <form onSubmit={this.state.handleAddCity}>
