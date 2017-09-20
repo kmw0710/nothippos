@@ -5,13 +5,13 @@ const User = require('./db/userSchema');
 
 
 
-// router.get('/', function(req, res) {
-//   res.redirect('/#/');
-// });
+router.get('/', function(req, res) {
+  res.redirect('/#/');
+});
 
-// router.get('/login',function(req, res) {
-//   res.redirect('/#/login');
-// });
+router.get('/login',function(req, res) {
+  res.redirect('/#/login');
+});
 
 router.get('/savedTrips', function(req, res) {
   // User.find({}, function(error, tripName) {
