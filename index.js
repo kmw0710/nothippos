@@ -7,7 +7,6 @@ var session = require("express-session");
 const passport = require('passport'), 
 FacebookStrategy = require('passport-facebook').Strategy;
 
-
 const app = express();
 
 app.use(parser.json());

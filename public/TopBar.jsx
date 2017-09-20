@@ -1,5 +1,6 @@
 import React from 'react';
 import Hidden from './Hidden.jsx';
+import axios from 'axios';
 
 class TopBar extends React.Component{
 	constructor(props) {
@@ -24,7 +25,13 @@ class TopBar extends React.Component{
   }
 
   createNewTrip() {
-
+  	axios.get('/')
+  		.then(res => {
+  			console.log(res);
+  		})
+  		.catch(err => {
+  			console.log(err);
+  		})
   }
 
 	render(){
@@ -41,5 +48,4 @@ class TopBar extends React.Component{
     </div>
 	}
 }
-
 export default TopBar;
