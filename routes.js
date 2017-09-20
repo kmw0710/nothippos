@@ -6,29 +6,62 @@ const User = require('./db/userSchema');
 
 
 // router.get('/', function(req, res) {
-//   // initial get to landing page
+//   res.redirect('/#/');
 // });
 
-// router.get('/savedTrip', function(req, res) {
-//   // res.send all the saved trips from db
+// router.get('/login',function(req, res) {
+//   res.redirect('/#/login');
 // });
+
+router.get('/savedTrips', function(req, res) {
+  // User.find({}, function(error, tripName) {
+  //   console.log(tripName)
+  //   if (error) {
+  //     console.log(error);
+  //   } 
+  // }).then((tripName) => {
+  //   res.send(tripName);
+  // });
+});
 
 
 router.post('/saveNewTrip', function(req, res) {
-  console.log(req.body)
+  // console.log(req.body)
+  let err;
 
-  City.create({
-  	// tag: ,
-   //  user: ,
-    locationName: req.body.locationName,
-    arrivalDate: req.body.arrivalDate,
-    departureDate: req.body.departureDate
-  })
+  req.body.currentCities.forEach((city) => {
+    
+      City.create({
+        tag: req.body.tags,
+        // user: ,
+        locationName: city.locationName,
+        arrivalDate: city.dateOfArrival,
+        departureDate: city.dateOfDeparture
+      }).then((error, tripInfo) => {
+        if (error) {
+          err = error;
+        }
+      });
 
-  User.create({
+  });
+  if (err) {
+    res.sendStatus(404);
+  } else {
+    res.sendStatus(201);
+  }
 
-  })
-
+  // User.create({
+  //   // user: user,
+  //   tripTags.push(req.body.tags);
+  //   tripTags: tripTags;
+  // }).then((error, trips) => {
+  //   if (error) {
+  //     console.log(error);
+  //     res.sendStatus(400);
+  //   } else {
+  //     res.sendStatus(201);
+  //   }
+  // });
 });
 
 
