@@ -37,17 +37,17 @@ router.post('/saveNewTrip', function(req, res) {
         locationName: city.locationName,
         arrivalDate: city.dateOfArrival,
         departureDate: city.dateOfDeparture
-      }).then((error, tripInfo) => {
+      }).then((error) => {
         if (error) {
           err = error;
         }
       });
-
   });
+
   if (err) {
     res.sendStatus(404);
   } else {
-    res.sendStatus(201);
+    res.redirect(201, '/viewTrip');
   }
 
   // User.create({
