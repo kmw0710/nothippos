@@ -5,7 +5,8 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  HashRouter
+  HashRouter,
+  Redirect
 } from 'react-router-dom';
 
 export default class App extends React.Component {
@@ -13,6 +14,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loggedIn: true
     }
   }
 
@@ -20,8 +22,8 @@ export default class App extends React.Component {
     return (
       <HashRouter>
         <div>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
+          <Route path="/home" component={Home} />
+          <Route exact path="/" component={Login} />
         </div>
       </HashRouter>
     )
