@@ -4,6 +4,7 @@ import Displayed from './Display.jsx';
 import TopBar from './TopBar.jsx';
 import Hidden from './Hidden.jsx';
 import axios from 'axios';
+import querystring from 'querystring';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -44,20 +45,31 @@ export default class Home extends React.Component {
     var atag = this.state.tags;
     var current = this.state.currentCities;
     axios({
-      method: "post",
-      url: "/saveNewTrips",
+      method: "POST",
+      url: "/saveNewTrip",
       data: {
         tag: atag,
-        currentCities: [current[0], current[1], current[2]]
+        currentCities: {
+          locationName: current[0],
+          dateOfArrival: current[1],
+          dateOfArrival: current[2]
+        }
       }
     })
-    .then(res => {
-      return `your ${Tripname} is saved!`
-    })
-    .catch(err => {
-      console.log(err)
-    })
   }
+
+  // saveNewTrips() {
+  //   var atag = this.state.tags;
+  //   var current = this.state.currentCities;
+  //   axios.post('/saveNewTrip', {
+  //     tag: atag,
+  //     currentCities: {
+  //       locationName: "London",
+  //       dateOfArrival: "2017-09-20",
+  //       dateOfDeparture: "2017-09-21"
+  //     },
+  //   })
+  // }
 
   tagClicked(tag) {
     axios({
@@ -68,9 +80,10 @@ export default class Home extends React.Component {
       }
     })
     .then(res => {
+      console.log(res.data)
       this.setState({
-        currentCities: res.data.currentCities,
-        savedTags: res.data.savedTags
+        currentCities: res.data[0].currentCities,
+        tags: res.data[0].tags
       })
     })
   }
