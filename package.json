@@ -1,0 +1,31 @@
+{
+  "name": "hippos",
+  "version": "1.0.0",
+  "description": "greenfield project",
+  "main": "index.jsx",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "google-map-react": "^0.24.0",
+    "mongoose": "^4.11.12",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "webpack": "^3.6.0"
+  },
+  "keywords": [
+    "travel",
+    "app"
+  ],
+  "author": "Hippos",
+  "license": "ISC"
+}
