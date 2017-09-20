@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import Display from './Display.jsx';
+import { Col } from 'react-bootstrap';
 
 export default class InputBar extends React.Component {
 
@@ -35,41 +37,52 @@ export default class InputBar extends React.Component {
   }
 
   render() {
+    let city = this.props.currentCities.map((city, i) => {
+      return <Display city={city} currentCities={this.state.currentCities} key={i} idx={i} changeCurrentEditCity={this.props.changeCurrentEditCity}/>
+    });
     return ( 
-      <div>
-       <h2>Nav Bar</h2>
-       <form onSubmit={this.state.handleAddCity}>
-        <label>
-          Trip Name: 
-          <input type="text" name="tripName" value={this.state.tripName} onChange={this.handleInputChange}/> 
-        </label>
+      <Col sm={5} md={4}>
+        <div>
+         <h2>Input Bar</h2>
+         <form onSubmit={this.state.handleAddCity}>
+          <label>
+            Trip Name: 
+            <input type="text" name="tripName" value={this.state.tripName} onChange={this.handleInputChange}/> 
+          </label>
+          <br/>
+          <input type="submit" value="Create" onClick={this.handleAddTripName}/>
+        </form>
         <br/>
-        <input type="submit" value="Create" onClick={this.handleAddTripName}/>
-      </form>
-      <br/>
-      <br/>
+        <br/>
 
-      <form >
-        <label>
-          Location: 
-          <input type="text" name="locationName" value={this.state.locationName} onChange={this.handleInputChange}/> 
-        </label>
-        <br/>
-        <br/>
-        <label>
-          Date of Arrival: 
-          <input type="text" name="dateOfArrival" value={this.state.dateOfArrival} onChange={this.handleInputChange}/> 
-        </label>
-        <br/>
-        <br/>
-        <label>
-          Date of Departure: 
-          <input type="text" name="dateOfDeparture" value={this.state.dateOfDeparture} onChange={this.handleInputChange}/> 
-        </label>
-        <br/>
-        <input type="submit" value="Add" action="#" onClick={this.handleAddCity} />
-      </form>
-    </div>
+        <form >
+          <label>
+            Location: 
+            <input type="text" name="locationName" value={this.state.locationName} onChange={this.handleInputChange}/> 
+          </label>
+          <br/>
+          <br/>
+          <label>
+            Date of Arrival: 
+            <input type="text" name="dateOfArrival" value={this.state.dateOfArrival} onChange={this.handleInputChange}/> 
+          </label>
+          <br/>
+          <br/>
+          <label>
+            Date of Departure: 
+            <input type="text" name="dateOfDeparture" value={this.state.dateOfDeparture} onChange={this.handleInputChange}/> 
+          </label>
+          <br/>
+          <input type="submit" value="Add" action="#" onClick={this.handleAddCity} />
+        </form>
+        {city}
+        <form>
+          <button type="Submit" onClick={(event) => {
+            this.props.saveNewTrips()
+          }}>Save</button>
+        </form>
+      </div>
+    </Col>
   )
  }
 }
