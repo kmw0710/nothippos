@@ -12,15 +12,17 @@ router.get('/login',function(req, res) {
   res.redirect('/#/login');
 });
 
-router.get('/savedTrips', function(req, res) {
-  // User.find({}, function(error, tripName) {
-  //   console.log(tripName)
+router.post('/savedTrips', function(req, res) {
+  var session = req.session.passport;
+  console.log('TAGS ', req.body)
+  City.find({'user': session.user.id,'tag': req.body.tags}, function(error, tripName) {
+    console.log('this is the city info for a trip', tripName)
   //   if (error) {
   //     console.log(error);
   //   } 
   // }).then((tripName) => {
   //   res.send(tripName);
-  // });
+  });
 });
 
 
