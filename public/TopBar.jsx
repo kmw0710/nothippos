@@ -38,13 +38,13 @@ class TopBar extends React.Component{
   }
 
 	render(){
-		let savedTags = this.props.savedTags.map((tag) => {
-		if (this.state.showDiv === true) {
-			return <Hidden tag={tag} tagClicked={this.props.tagClicked}/>
+		let savedTags = this.props.savedTags.map((tag, i) => {
+    if (this.state.showDiv === true) {
+			return <Hidden tag={tag} tagClicked={this.props.tagClicked} key={i} />
 			}
 		})
 		return ( 
-			<div class="topBar">
+			<div className="topBar">
 			  <button onClick={this.createNewTrip}> Create New Trip</button>
 	   	  <button onClick={this.showSavedTags}>savedTrip</button>
 	      {savedTags}

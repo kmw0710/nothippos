@@ -9,11 +9,9 @@ export default class CityEditView extends React.Component {
     super(props);
     this.state = {
 
-
     }
   }
-
-
+  
   render() {
     return (
       

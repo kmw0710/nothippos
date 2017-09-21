@@ -5,10 +5,8 @@ export default class MapView extends React.Component {
     super(props);
     this.state = {
 
-
     }
   }
-
 
   render() {
     return (

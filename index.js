@@ -6,6 +6,7 @@ const db = require('./db/config');
 var session = require('express-session');
 const passport = require('passport'), 
 FacebookStrategy = require('passport-facebook').Strategy;
+const User = require('./db/userSchema');
 
 const app = express();
 
@@ -40,8 +41,6 @@ passport.deserializeUser(function(profile, done) {
 
 
 
-
-
 // app.use('/scripts', express.static('./node_modules'))
 app.use('/', express.static(path.join(__dirname, 'public')))
 app.use(require('express-session')({
@@ -54,7 +53,6 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/login' }), function(req, res) {
     var sessData = req.session.passport;
-    // console.log('sessData', sessData);
   	res.redirect('/#/home')
   });
 
