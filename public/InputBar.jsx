@@ -1,7 +1,7 @@
 import React from 'react';
 import Display from './Display.jsx';
 import { Col } from 'react-bootstrap';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng, geocodeByPlaceId } from 'react-places-autocomplete';
 
 export default class InputBar extends React.Component {
 
@@ -12,13 +12,20 @@ export default class InputBar extends React.Component {
       locationName: '',
       dateOfArrival: '',
       dateOfDeparture: '',
-      latLng: ''
+      latLng: '',
+      address: ''
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleAddCity = this.handleAddCity.bind(this);
     this.handleAddTripName = this.handleAddTripName.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
+  onChange(address) {
+    this.setState({
+      address: address
+    })
+  }
 
   handleInputChange(event) {
     const target = event.target;
@@ -30,17 +37,23 @@ export default class InputBar extends React.Component {
   }
 
   handleAddCity(event) {
+    
     event.preventDefault();
-    geocodeByAddress(this.state.locationName)
-      .then(results => getLatLng(results[0]))
+    console.log("is this working?", this.state.address);
+    geocodeByAddress(this.state.address)
+      .then(results => { 
+        console.log('2', results);
+        return getLatLng(results[0]);
+      })
       .then(latLng => {
+        console.log("is this messing up", latLng);
         this.setState({
           latLng: latLng
         })
         console.log('Success', latLng)
       })
       .then(()=>{
-        this.props.addCityToParent(this.state.locationName, this.state.dateOfArrival, this.state.dateOfDeparture, this.state.latLng);
+        this.props.addCityToParent(this.state.address, this.state.dateOfArrival, this.state.dateOfDeparture, this.state.latLng);
       })
       .then(()=> {
         this.props.changeCityMarkers(this.state.locationName, this.state.latLng);
@@ -54,6 +67,11 @@ export default class InputBar extends React.Component {
   }
 
   render() {
+    const inputProps = {
+      value: this.state.address,
+      onChange: this.onChange
+    }
+
     let city = this.props.currentCities.map((city, i) => {
       return <Display city={city} currentCities={this.state.currentCities} key={i} idx={i} changeCurrentEditCity={this.props.changeCurrentEditCity}/>
     });
@@ -75,7 +93,7 @@ export default class InputBar extends React.Component {
         <form >
           <label>
             Location: 
-            <input type="text" name="locationName" value={this.state.locationName} onChange={this.handleInputChange}/> 
+            <PlacesAutocomplete inputProps={inputProps} type="text" name="locationName" value={this.state.locationName} onChange={this.handleInputChange}/> 
           </label>
           <br/>
           <br/>
