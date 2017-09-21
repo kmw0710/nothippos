@@ -21,7 +21,7 @@ export default class EditPlanDisplay extends React.Component {
     <Col sm={7} md={8}>
       <div>
         <TopBar savedTags={this.props.savedTags} tagClicked={this.props.tagClicked}/>
-        <CityEditView saveEvent={this.props.saveEvent} createNewEvent={this.props.createNewEvent} currentEditCity={this.props.currentEditCity}/>
+        <CityEditView cityMarkers={this.props.cityMarkers} saveEvent={this.props.saveEvent} createNewEvent={this.props.createNewEvent} currentEditCity={this.props.currentEditCity}/>
       </div>
     </Col>
     )
