@@ -16,7 +16,8 @@ export default class Home extends React.Component {
       currentEditCity: {
         events: []
       },
-      savedTags: ['hi', 'hello']
+      savedTags: ['hi', 'hello'],
+      cityMarkers: []
     }
     this.addCity = this.addCity.bind(this);
     this.addTags = this.addTags.bind(this);
@@ -25,6 +26,19 @@ export default class Home extends React.Component {
     this.changeCurrentEditCity = this.changeCurrentEditCity.bind(this);
     this.createNewEvent = this.createNewEvent.bind(this);
     this.saveEvent = this.saveEvent.bind(this);
+    this.changeCityMarkers = this.changeCityMarkers.bind(this);
+  }
+
+  changeCityMarkers (location, position) {
+    var newMarker = {
+      cityName: location,
+      position: position
+    }
+    var currentMarkers = this.state.cityMarkers;
+    currentMarkers.push(newMarker);
+    this.setState({
+      cityMarkers: currentMarkers
+    })
   }
 
   componentDidMount() {
@@ -101,11 +115,12 @@ export default class Home extends React.Component {
 
   }
 
-  addCity (locationName, dateOfArrival, dateOfDeparture) {
+  addCity (locationName, dateOfArrival, dateOfDeparture, latLng) {
     var city = {
       locationName: locationName,
       dateOfArrival: dateOfArrival,
       dateOfDeparture: dateOfDeparture,
+      latLng: latLng,
       events: [
         {
           activityName: 'Arrival',
@@ -191,11 +206,10 @@ export default class Home extends React.Component {
 
     return (
       <div>
-        <InputBar addCityToParent={this.addCity} addTagsToParent={this.addTags}
-          saveNewTrips = {this.saveNewTrips} currentCities={this.state.currentCities} changeCurrentEditCity={this.changeCurrentEditCity}
+        <InputBar changeCityMarkers={this.changeCityMarkers} addCityToParent={this.addCity} addTagsToParent={this.addTags}
+          saveNewTrips={this.saveNewTrips} currentCities={this.state.currentCities} changeCurrentEditCity={this.changeCurrentEditCity}
           />
-        <EditPlanDisplay saveEvent={this.saveEvent} createNewEvent={this.createNewEvent} savedTags={this.state.savedTags} tagClicked={this.tagClicked} currentEditCity={this.state.currentEditCity}/>
-        <Hidden tagClicked={this.tagClicked} tags={this.state.tags} />
+        <EditPlanDisplay cityMarkers={this.state.cityMarkers} saveEvent={this.saveEvent} createNewEvent={this.createNewEvent} savedTags={this.state.savedTags} tagClicked={this.tagClicked} currentEditCity={this.state.currentEditCity}/>
       </div>
     )
   }
