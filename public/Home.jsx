@@ -37,7 +37,11 @@ export default class Home extends React.Component {
 
   createNewEvent () {
     var newEvent = {
-      eventName: null
+      activityName: '',
+      date: '',
+      time: '',
+      location: '',
+      notes: '',
     }
     var tempCurrentEditCity = this.state.currentEditCity;
     var tempEvents = tempCurrentEditCity.events;
@@ -60,9 +64,28 @@ export default class Home extends React.Component {
       notes: notes
     };
     eventsToEdit[idx] = eventEditChanges;
+    eventsToEdit.sort(function(a,b) {
+      if (a.date < b.date) {
+        return -1;
+      } else if (a.date > b.date) {
+        return 1;
+      } else {
+        if (a.time < b.time) {
+          return -1;
+        } else {
+          return 1;
+        }
+      }
+    })
     cityToEdit.events = eventsToEdit;
+    var city = {
+      locationName: cityToEdit.locationName,
+      dateOfArrival: cityToEdit.dateOfArrival,
+      dateOfDeparture: cityToEdit.dateOfDeparture,
+      events: eventsToEdit
+    }
     this.setState ({
-      currentEditCity: cityToEdit
+      currentEditCity: city
     })
     console.log(this.state.currentEditCity);
 

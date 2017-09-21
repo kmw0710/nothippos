@@ -8,13 +8,24 @@ export default class EventDisplay extends React.Component {
       date: '',
       time: '',
       location: '',
-      notes: '',
+      notes: ''
 
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSaveEvent = this.handleSaveEvent.bind(this);
 
   }
+
+  componentDidMount() {
+    this.setState({
+      activityName: this.props.event.activityName,
+      date: '',
+      time: '',
+      location: '',
+      notes: '',
+    })
+  }
+
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
@@ -36,7 +47,7 @@ export default class EventDisplay extends React.Component {
         <form >
           <label>
             Activity Name: 
-            <input type="text" name="activityName" defaultValue={this.props.event.activityName} onChange={this.handleInputChange}/> 
+            <input type="text" name="activityName" value={this.state.activityName} onChange={this.handleInputChange}/> 
           </label>
           <br/>
           <label>
