@@ -162,7 +162,7 @@ export default class Home extends React.Component {
 
   tagClicked(tag) {
     axios({
-      method: "GET",
+      method: "POST",
       url: "/api/savedTrips",
       param:{
         tag: tag
