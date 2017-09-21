@@ -8,4 +8,4 @@ var citySchema = mongoose.Schema({
   dateOfDeparture: Number
 });
 
-var City = mongoose.model('City', citySchema);
+module.exports = mongoose.model('City', citySchema);
