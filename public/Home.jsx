@@ -48,6 +48,10 @@ export default class Home extends React.Component {
     console.log(this.state.currentEditCity);
   }
 
+  saveEvent () {
+
+  }
+
   addCity (locationName, dateOfArrival, dateOfDeparture) {
     var city = {
       locationName: locationName,
@@ -55,16 +59,18 @@ export default class Home extends React.Component {
       dateOfDeparture: dateOfDeparture,
       events: [
         {
-          eventName: 'Arrival',
-          time: dateOfArrival,
-          description: '',
-          location: locationName
+          activityName: 'Arrival',
+          date: dateOfArrival,
+          time: '',
+          location: locationName,
+          notes: '',
         },
         {
-          eventName: 'Departure',
-          time: dateOfDeparture,
-          description: '',
-          location: locationName
+          activityName: 'Departure',
+          date: dateOfDeparture,
+          time: '',
+          location: locationName,
+          notes: '',
         }
       ]
     }
