@@ -4,7 +4,6 @@ const City = require('./db/citySchema');
 const User = require('./db/userSchema');
 
 
-
 router.get('/', function(req, res) {
   res.redirect('/#/');
 });
@@ -44,26 +43,34 @@ router.post('/saveNewTrip', function(req, res) {
       });
   });
 
+
+  var session = req.session.passport;
+
+  User.findOne({ 'user': session.user.id}, function(err, data) {
+    if (err) {
+    } else if (!data) {
+      User.create({
+        user: session.user.id
+      });
+    } else if (data) {
+      var tempTripTags = data.tripTags;
+      tempTripTags.push(req.body.tags);
+
+      data.save(error => {
+        if (error) {
+          err = error;
+        } else {
+          User.tripTags = tempTripTags;          
+        }
+      });
+    }
+  });
+
   if (err) {
     res.sendStatus(400);
   } else {
-    res.redirect(201, '/viewTrip');
-  }
-
-    console.log('req.session.passport', req.session.passport)
-//   User.create({
-//     user: req.session.passport.user.id
-//     tripTags.push(req.body.tags);
-//     tripTags: tripTags;
-//   }).then((error, trips) => {
-//     if (error) {
-//       console.log(error);
-//       res.sendStatus(400);
-//     } else {
-//       res.sendStatus(201);
-//     }
-//   });
-
+    res.redirect(201, '/#/viewTrip');
+  } 
 });
 
 

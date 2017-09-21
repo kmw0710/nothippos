@@ -46,17 +46,23 @@ export default class Home extends React.Component {
     var current = this.state.currentCities;
     axios({
       method: "POST",
-      url: "/saveNewTrip",
+      url: "/api/saveNewTrip",
       data: {
-        tag: atag,
-        currentCities: {
+        tags: atag,
+        currentCities: [{
           locationName: current[0],
           dateOfArrival: current[1],
-          dateOfArrival: current[2]
-        }
+          dateOfDeparture: current[2]
+        }]
       }
-    })
+    });
+    this.saveToSavedTags(atag);
   }
+
+  saveToSavedTags(tag) {
+    this.state.savedTags.push(tag);
+  }
+
 
   // saveNewTrips() {
   //   var atag = this.state.tags;
@@ -74,7 +80,7 @@ export default class Home extends React.Component {
   tagClicked(tag) {
     axios({
       method: "GET",
-      url: "/savedTrips",
+      url: "/api/savedTrips",
       param:{
         tag: tag
       }
