@@ -19,7 +19,7 @@ export default class CityEditView extends React.Component {
       
         <div>
           <MapView />
-          <CityEventEntryEditor createNewEvent={this.props.createNewEvent} currentEditCity={this.props.currentEditCity}/>
+          <CityEventEntryEditor saveEvent={this.props.saveEvent} createNewEvent={this.props.createNewEvent} currentEditCity={this.props.currentEditCity}/>
 
         </div>
       

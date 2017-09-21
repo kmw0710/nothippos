@@ -24,6 +24,7 @@ export default class Home extends React.Component {
     this.saveNewTrips = this.saveNewTrips.bind(this);
     this.changeCurrentEditCity = this.changeCurrentEditCity.bind(this);
     this.createNewEvent = this.createNewEvent.bind(this);
+    this.saveEvent = this.saveEvent.bind(this);
   }
 
   changeCurrentEditCity (idx) {
@@ -36,7 +37,11 @@ export default class Home extends React.Component {
 
   createNewEvent () {
     var newEvent = {
-      eventName: null
+      activityName: '',
+      date: '',
+      time: '',
+      location: '',
+      notes: '',
     }
     var tempCurrentEditCity = this.state.currentEditCity;
     var tempEvents = tempCurrentEditCity.events;
@@ -48,7 +53,41 @@ export default class Home extends React.Component {
     console.log(this.state.currentEditCity);
   }
 
-  saveEvent () {
+  saveEvent (idx, activityName, date, time, location, notes) {
+    var cityToEdit = this.state.currentEditCity;
+    var eventsToEdit = cityToEdit.events;
+    var eventEditChanges = {
+      activityName: activityName,
+      date: date,
+      time: time,
+      location: location,
+      notes: notes
+    };
+    eventsToEdit[idx] = eventEditChanges;
+    eventsToEdit.sort(function(a,b) {
+      if (a.date < b.date) {
+        return -1;
+      } else if (a.date > b.date) {
+        return 1;
+      } else {
+        if (a.time < b.time) {
+          return -1;
+        } else {
+          return 1;
+        }
+      }
+    })
+    cityToEdit.events = eventsToEdit;
+    var city = {
+      locationName: cityToEdit.locationName,
+      dateOfArrival: cityToEdit.dateOfArrival,
+      dateOfDeparture: cityToEdit.dateOfDeparture,
+      events: eventsToEdit
+    }
+    this.setState ({
+      currentEditCity: city
+    })
+    console.log(this.state.currentEditCity);
 
   }
 
@@ -145,7 +184,7 @@ export default class Home extends React.Component {
         <InputBar addCityToParent={this.addCity} addTagsToParent={this.addTags}
           saveNewTrips={this.saveNewTrips} currentCities={this.state.currentCities} changeCurrentEditCity={this.changeCurrentEditCity}
           />
-        <EditPlanDisplay createNewEvent={this.createNewEvent} savedTags={this.state.savedTags} tagClicked={this.tagClicked} currentEditCity={this.state.currentEditCity}/>
+        <EditPlanDisplay saveEvent={this.saveEvent} createNewEvent={this.createNewEvent} savedTags={this.state.savedTags} tagClicked={this.tagClicked} currentEditCity={this.state.currentEditCity}/>
       </div>
     )
   }

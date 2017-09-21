@@ -8,12 +8,24 @@ export default class EventDisplay extends React.Component {
       date: '',
       time: '',
       location: '',
-      notes: '',
+      notes: ''
 
     }
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSaveEvent = this.handleSaveEvent.bind(this);
 
   }
+
+  componentDidMount() {
+    this.setState({
+      activityName: this.props.event.activityName,
+      date: '',
+      time: '',
+      location: '',
+      notes: '',
+    })
+  }
+
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
@@ -23,6 +35,10 @@ export default class EventDisplay extends React.Component {
     });
     console.log(this.state);
   }
+  handleSaveEvent(event) {
+    event.preventDefault();
+    this.props.saveEvent(this.props.idx, this.state.activityName, this.state.date, this.state.time, this.state.location, this.state.notes);
+  }
 
 
   render() {
@@ -31,7 +47,7 @@ export default class EventDisplay extends React.Component {
         <form >
           <label>
             Activity Name: 
-            <input type="text" name="activityName" defaultValue={this.props.event.activityName} onChange={this.handleInputChange}/> 
+            <input type="text" name="activityName" value={this.state.activityName} onChange={this.handleInputChange}/> 
           </label>
           <br/>
           <label>
@@ -54,6 +70,7 @@ export default class EventDisplay extends React.Component {
             <input type="text" name="notes" defaultValue={this.props.event.notes} onChange={this.handleInputChange}/> 
           </label>
           <br/>
+          <button onClick={this.handleSaveEvent}> Save Trip </button>
         </form>
         <br/>
         <br/>
