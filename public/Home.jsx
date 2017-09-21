@@ -97,11 +97,7 @@ export default class Home extends React.Component {
       url: "/api/saveNewTrip",
       data: {
         tags: atag,
-        currentCities: [{
-          locationName: current[0],
-          dateOfArrival: current[1],
-          dateOfDeparture: current[2]
-        }]
+        currentCities: current
       }
     });
     this.saveToSavedTags(atag);

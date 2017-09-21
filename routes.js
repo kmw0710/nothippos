@@ -27,24 +27,26 @@ router.get('/savedTrips', function(req, res) {
 router.post('/saveNewTrip', function(req, res) {
   // console.log(req.body)
   let err;
+  var session = req.session.passport;
 
+  console.log('current cities', req.body.currentCities)
   req.body.currentCities.forEach((city) => {
+    console.log(city);
     
+    // console.log('Creating city data')
       City.create({
         tag: req.body.tags,
-        // user: ,
-        locationName: city.locationName,
-        arrivalDate: city.dateOfArrival,
-        departureDate: city.dateOfDeparture
+        user: session.user.id,
+        cityName: city.locationName,
+        dateOfArrival: city.dateOfArrival,
+        dateOfDeparture: city.dateOfDeparture,
+        events: city.events
       }).then((error) => {
         if (error) {
           err = error;
         }
       });
   });
-
-
-  var session = req.session.passport;
 
   User.findOne({ 'user': session.user.id}, function(err, data) {
     if (err) {
