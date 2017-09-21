@@ -24,6 +24,7 @@ export default class Home extends React.Component {
     this.saveNewTrips = this.saveNewTrips.bind(this);
     this.changeCurrentEditCity = this.changeCurrentEditCity.bind(this);
     this.createNewEvent = this.createNewEvent.bind(this);
+    this.saveEvent = this.saveEvent.bind(this);
   }
 
   changeCurrentEditCity (idx) {
@@ -48,7 +49,22 @@ export default class Home extends React.Component {
     console.log(this.state.currentEditCity);
   }
 
-  saveEvent () {
+  saveEvent (idx, activityName, date, time, location, notes) {
+    var cityToEdit = this.state.currentEditCity;
+    var eventsToEdit = cityToEdit.events;
+    var eventEditChanges = {
+      activityName: activityName,
+      date: date,
+      time: time,
+      location: location,
+      notes: notes
+    };
+    eventsToEdit[idx] = eventEditChanges;
+    cityToEdit.events = eventsToEdit;
+    this.setState ({
+      currentEditCity: cityToEdit
+    })
+    console.log(this.state.currentEditCity);
 
   }
 
@@ -149,7 +165,7 @@ export default class Home extends React.Component {
         <InputBar addCityToParent={this.addCity} addTagsToParent={this.addTags}
           saveNewTrips={this.saveNewTrips} currentCities={this.state.currentCities} changeCurrentEditCity={this.changeCurrentEditCity}
           />
-        <EditPlanDisplay createNewEvent={this.createNewEvent} savedTags={this.state.savedTags} tagClicked={this.tagClicked} currentEditCity={this.state.currentEditCity}/>
+        <EditPlanDisplay saveEvent={this.saveEvent} createNewEvent={this.createNewEvent} savedTags={this.state.savedTags} tagClicked={this.tagClicked} currentEditCity={this.state.currentEditCity}/>
       </div>
     )
   }

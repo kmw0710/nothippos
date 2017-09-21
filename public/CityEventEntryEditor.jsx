@@ -14,7 +14,7 @@ export default class CityEventEntryEditor extends React.Component {
 
   render() {
     let events = this.props.currentEditCity.events.map((event, i) => {
-      return <EventDisplay event={event} key={i} idx={i} />
+      return <EventDisplay saveEvent={this.props.saveEvent} event={event} key={i} idx={i} />
     });
     return (
       <div>
