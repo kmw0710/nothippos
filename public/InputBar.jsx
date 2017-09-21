@@ -1,6 +1,7 @@
 import React from 'react';
 import Display from './Display.jsx';
 import { Col } from 'react-bootstrap';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 export default class InputBar extends React.Component {
 
@@ -10,12 +11,14 @@ export default class InputBar extends React.Component {
       tripName: '',
       locationName: '',
       dateOfArrival: '',
-      dateOfDeparture: ''
+      dateOfDeparture: '',
+      latLng: ''
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleAddCity = this.handleAddCity.bind(this);
     this.handleAddTripName = this.handleAddTripName.bind(this);
   }
+
 
   handleInputChange(event) {
     const target = event.target;
@@ -28,7 +31,21 @@ export default class InputBar extends React.Component {
 
   handleAddCity(event) {
     event.preventDefault();
-    this.props.addCityToParent(this.state.locationName, this.state.dateOfArrival, this.state.dateOfDeparture);
+    geocodeByAddress(this.state.locationName)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => {
+        this.setState({
+          latLng: latLng
+        })
+        console.log('Success', latLng)
+      })
+      .then(()=>{
+        this.props.addCityToParent(this.state.locationName, this.state.dateOfArrival, this.state.dateOfDeparture, this.state.latLng);
+      })
+      .then(()=> {
+        this.props.changeCityMarkers(this.state.locationName, this.state.latLng);
+      })
+      .catch(error => console.error('Error', error))
   }
 
   handleAddTripName(event) {
