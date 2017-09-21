@@ -27,6 +27,16 @@ export default class Home extends React.Component {
     this.saveEvent = this.saveEvent.bind(this);
   }
 
+  componentDidMount() {
+    axios.get('/api/tagList')
+      .then(res => {
+        console.log(res)
+        this.setState({
+          savedTags: res.data
+      })
+    })
+  }
+
   changeCurrentEditCity (idx) {
     var temp = this.state.currentCities[idx];
     this.setState ({
@@ -139,6 +149,12 @@ export default class Home extends React.Component {
         currentCities: current
       }
     });
+    axios.get('/api/tagList')
+      .then(res => {
+        this.setState({
+          savedTags: res.data
+      })
+    })
     this.saveToSavedTags(atag);
   }
 
@@ -146,33 +162,27 @@ export default class Home extends React.Component {
     this.state.savedTags.push(tag);
   }
 
-
-  // saveNewTrips() {
-  //   var atag = this.state.tags;
-  //   var current = this.state.currentCities;
-  //   axios.post('/saveNewTrip', {
-  //     tag: atag,
-  //     currentCities: {
-  //       locationName: "London",
-  //       dateOfArrival: "2017-09-20",
-  //       dateOfDeparture: "2017-09-21"
-  //     },
-  //   })
-  // }
-
-  tagClicked(tag) {
+  tagClicked(clickedit) {
     axios({
-      method: "POST",
+  method: "get",
       url: "/api/savedTrips",
-      param:{
-        tag: tag
+      params:{
+        tag: clickedit
       }
     })
     .then(res => {
-      console.log(res.data)
+      console.log(res)
+      var temp = [];
+      var tempObj = {};
+      for (var i = 0; i < res.data.length; i++) {
+        tempObj.locationName = res.data.cityName;
+        tempObj.dateOfArrival = res.data.dateOfArrival;
+        tempObj.dateOfDeparture = res.data.dateOfDeparture;
+        temp.push(tempObj)
+      }
       this.setState({
-        currentCities: res.data[0].currentCities,
-        tags: res.data[0].tags
+        currentCities: temp,
+        tags: clickedit
       })
     })
   }
@@ -182,9 +192,10 @@ export default class Home extends React.Component {
     return (
       <div>
         <InputBar addCityToParent={this.addCity} addTagsToParent={this.addTags}
-          saveNewTrips={this.saveNewTrips} currentCities={this.state.currentCities} changeCurrentEditCity={this.changeCurrentEditCity}
+          saveNewTrips = {this.saveNewTrips} currentCities={this.state.currentCities} changeCurrentEditCity={this.changeCurrentEditCity}
           />
         <EditPlanDisplay saveEvent={this.saveEvent} createNewEvent={this.createNewEvent} savedTags={this.state.savedTags} tagClicked={this.tagClicked} currentEditCity={this.state.currentEditCity}/>
+        <Hidden tagClicked={this.tagClicked} tags={this.state.tags} />
       </div>
     )
   }
