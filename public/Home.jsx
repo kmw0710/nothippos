@@ -3,6 +3,7 @@ import InputBar from './InputBar.jsx';
 import Displayed from './Display.jsx';
 import TopBar from './TopBar.jsx';
 import Hidden from './Hidden.jsx';
+import EditPlanDisplay from './EditPlanDisplay.jsx';
 import axios from 'axios';
 import querystring from 'querystring';
 
@@ -12,19 +13,66 @@ export default class Home extends React.Component {
     this.state = {
       currentCities: [],
       tags: '',
+      currentEditCity: {
+        events: []
+      },
       savedTags: ['hi', 'hello']
     }
     this.addCity = this.addCity.bind(this);
     this.addTags = this.addTags.bind(this);
     this.tagClicked = this.tagClicked.bind(this);
     this.saveNewTrips = this.saveNewTrips.bind(this);
+    this.changeCurrentEditCity = this.changeCurrentEditCity.bind(this);
+    this.createNewEvent = this.createNewEvent.bind(this);
+  }
+
+  changeCurrentEditCity (idx) {
+    var temp = this.state.currentCities[idx];
+    this.setState ({
+      currentEditCity: temp
+    })
+    console.log(this.state);
+  }
+
+  createNewEvent () {
+    var newEvent = {
+      eventName: null
+    }
+    var tempCurrentEditCity = this.state.currentEditCity;
+    var tempEvents = tempCurrentEditCity.events;
+    tempEvents.push(newEvent);
+    tempCurrentEditCity.events = tempEvents;
+    this.setState ({
+      currentEditCity: tempCurrentEditCity
+    })
+    console.log(this.state.currentEditCity);
+  }
+
+  saveEvent () {
+
   }
 
   addCity (locationName, dateOfArrival, dateOfDeparture) {
     var city = {
       locationName: locationName,
       dateOfArrival: dateOfArrival,
-      dateOfDeparture: dateOfDeparture
+      dateOfDeparture: dateOfDeparture,
+      events: [
+        {
+          activityName: 'Arrival',
+          date: dateOfArrival,
+          time: '',
+          location: locationName,
+          notes: '',
+        },
+        {
+          activityName: 'Departure',
+          date: dateOfDeparture,
+          time: '',
+          location: locationName,
+          notes: '',
+        }
+      ]
     }
     var tempCities = this.state.currentCities;
     tempCities.push(city);
@@ -95,21 +143,13 @@ export default class Home extends React.Component {
   }
 
   render() {
-    let city = this.state.currentCities.map((city) => {
-      return <Displayed city={city} currentCities={this.state.currentCities} />
-    });
+
     return (
       <div>
-        <TopBar createNewTrip={this.createNewTrip} savedTags={this.state.savedTags}
-          tagClicked={this.tagClicked}/>
         <InputBar addCityToParent={this.addCity} addTagsToParent={this.addTags}
-          saveNewTrips={this.saveNewTrips}/>
-        {city}
-        <form>
-          <button type="Submit" onClick={(event) => {
-            this.saveNewTrips()
-          }}>Save</button>
-        </form>
+          saveNewTrips={this.saveNewTrips} currentCities={this.state.currentCities} changeCurrentEditCity={this.changeCurrentEditCity}
+          />
+        <EditPlanDisplay createNewEvent={this.createNewEvent} savedTags={this.state.savedTags} tagClicked={this.tagClicked} currentEditCity={this.state.currentEditCity}/>
       </div>
     )
   }

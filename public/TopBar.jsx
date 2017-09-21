@@ -23,7 +23,10 @@ class TopBar extends React.Component{
       })
     }
   }
-
+  
+  /*
+  Redirects to new page which is pretty much like creating a new trip.
+  */
   createNewTrip() {
   	axios.get('/')
   		.then(res => {
@@ -40,12 +43,13 @@ class TopBar extends React.Component{
 			return <Hidden tag={tag} tagClicked={this.props.tagClicked}/>
 			}
 		})
-		return <div class="topBar">
-			<button onClick={this.createNewTrip}> Create New Trip</button>
-	    <button onClick={this.showSavedTags}>savedTrip</button>
-	    {savedTags}
-	    <button>Profile</button>	    
-    </div>
-	}
+		return ( 
+			<div class="topBar">
+			  <button onClick={this.createNewTrip}> Create New Trip</button>
+	   	  <button onClick={this.showSavedTags}>savedTrip</button>
+	      {savedTags}
+	      <button>Profile</button>	    
+      </div>
+	  )}
 }
 export default TopBar;
