@@ -5,7 +5,7 @@ const Hidden = (props) => {
 			<div onClick={(event) => {
 				console.log(props.tag)
 				props.tagClicked(props.tag)}}>
-				<button id="clicked">{props.tag}</button>
+				<h5 id="clicked">{props.tag}</h5>
 			</div>
 		</div>
 }

@@ -1,0 +1,64 @@
+.topBar {
+    height: 50px;
+}
+
+.topBar ul {
+    float: right;
+    text-align: right;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.topBar li {
+    float: left;
+    margin-right: 25px;
+}
+
+.topBar li:hover {
+    text-decoration: underline;
+}
+
+.mapView {}
+
+.inputBar {
+  padding-left: 10%;
+  padding-top: 20%;
+  text-align: left;
+  background-color: lightgrey;
+  height: 200vh;
+}
+
+.inputBar input {
+  width: 120px;
+  height: 30px;
+}
+
+.inputBar input[type=text]:focus {
+    border: 3px solid #555;
+}
+
+.currentCityEdit {
+  padding-left: 10%;
+}
+
+.inputButton {
+  align-items: center;
+  text-align: center;
+  padding-right: 20%;
+}
+
+.hiddenTags {
+  float: right;
+  text-align: center;
+  margin-top: 30px;
+  z-index: 3;
+  background-color: lightgrey;
+  position: absolute;
+  right: 150px;
+}
+
+.editEvent:hover {
+  text-decoration: underline;
+}

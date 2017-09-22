@@ -1,6 +1,8 @@
 import React from 'react';
 import Hidden from './Hidden.jsx';
 import axios from 'axios';
+import DropdownButton from 'react-bootstrap';
+
 
 class TopBar extends React.Component{
 	constructor(props) {
@@ -45,10 +47,14 @@ class TopBar extends React.Component{
 		})
 		return ( 
 			<div className="topBar">
-			  <button onClick={this.createNewTrip}> Create New Trip</button>
-	   	  <button onClick={this.showSavedTags}>savedTrip</button>
-	      {savedTags}
-	      <button>Profile</button>	    
+        <ul>
+  			  <li onClick={this.createNewTrip}> <h4> Create New Trip </h4> </li>
+  	   	  <li onClick={this.showSavedTags}> <h4> Saved Trip </h4> </li>
+  	      <li> <h4> Profile </h4> </li>
+        </ul>
+        <div className="hiddenTags">
+          {savedTags}	
+        </div>    
       </div>
 	  )}
 }
