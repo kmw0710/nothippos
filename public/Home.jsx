@@ -17,7 +17,7 @@ export default class Home extends React.Component {
       currentEditCity: {
         events: []
       },
-      savedTags: ['hi', 'hello'],
+      savedTags: [],
       cityMarkers: []
     }
     this.addCity = this.addCity.bind(this);

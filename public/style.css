@@ -56,9 +56,22 @@
   z-index: 3;
   background-color: lightgrey;
   position: absolute;
-  right: 150px;
+  right: 110px;
 }
 
 .editEvent:hover {
   text-decoration: underline;
+}
+
+.clicked:hover {
+  text-decoration: underline;
+}
+
+.eventView {
+  background-color: lightgrey;
+  padding-top: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+
 }

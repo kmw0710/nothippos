@@ -56,19 +56,19 @@ export default class EventDisplay extends React.Component {
   render() {
     return (
       <div>
-        <ToggleDisplay show={this.state.show}>
+        <ToggleDisplay  show={this.state.show}>
+          <div className="eventView">
           <h3 onClick={ () => this.handleClick() } className="editEvent"> {this.state.activityName} </h3>
           <h5> <b>{this.state.date} </b> <small> {this.state.time} </small>  </h5>
           <h5> {this.state.location}  </h5>
           <p> {this.state.notes} </p>
+          </div>
         </ToggleDisplay>
           
 
 
 
         <ToggleDisplay if={!this.state.show} tag="section">
-         <p> I am rendered in a section and removed from the DOM when if is false. </p>
-        
         <form >
           <label>
             Activity Name: 
