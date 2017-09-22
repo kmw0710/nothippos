@@ -14,46 +14,28 @@ router.get('/login',function(req, res) {
   res.redirect('/#/login');
 });
 
-router.post('/savedTrips', function(req, res) {
-  var session = req.session.passport;
-  console.log('TAGS ', req.body)
-  City.find({'user': session.user.id,'tag': req.body.tags}, function(error, tripName) {
-    console.log('this is the city info for a trip', tripName)
-  //   if (error) {
-  //     console.log(error);
-  //   } 
-  // }).then((tripName) => {
-  //   res.send(tripName);
-  });
-});
 router.get('/tagList', function(req, res) {
   User.find({'user': req.session.passport.user.id})
     .then(result => {
-      res.send(result[0].tripTags);
+      res.send(result[0].tripTags)
     })
-})
+});
 
 router.get('/savedTrips', function(req, res) {
-  console.log(req.query)
+  var session = req.session.passport;
+  console.log('session user', session.user.id)
   var seek = req.query.tag
-  City.find({'tag': seek})
+  City.find({'tag': seek, 'user': session.user.id})
     .then(result => {  
       res.send(result)
     })
-})
-
-
+});
 
 router.post('/saveNewTrip', function(req, res) {
-  // console.log(req.body)  
   let err;
   var session = req.session.passport;
 
-  console.log('current cities', req.body.currentCities)
   req.body.currentCities.forEach((city) => {
-    console.log(city);
-    
-    // console.log('Creating city data')
       City.create({
         tag: req.body.tags,
         user: session.user.id,
@@ -65,10 +47,8 @@ router.post('/saveNewTrip', function(req, res) {
         if (error) {
           err = error;
         }
-      });
-  });
-
-
+      })
+  })
 
   User.findOne({'user': session.user.id}, function(err, data) {
     if (err) {
@@ -86,9 +66,9 @@ router.post('/saveNewTrip', function(req, res) {
         } else {
           User.tripTags = tempTripTags;          
         }
-      });
+      })
     }
-  });
+  })
 
   if (err) {
     res.sendStatus(400);
