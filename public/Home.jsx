@@ -197,11 +197,11 @@ export default class Home extends React.Component {
       method: "get",
       url: "/api/deleteCity",
       params: {
-        cityName: this.state.currentCities.locationName,
-        tripTag: this.state.savedTags
+        cityName: this.state.currentCities[0].locationName,
+        tripTag: this.state.tags
       }
     })
-    console.log('sent!!')
+    console.log('sent!!', this.state.currentCities[0].locationName)
   }
 
   tagClicked(clickedit) {
