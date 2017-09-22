@@ -31,6 +31,7 @@
   height: 200vh;
   clear: left;
   clear: right;
+  border-radius: 20px;
 }
 
 .inputBar input {
@@ -59,7 +60,7 @@
   z-index: 3;
   background-color: lightgrey;
   position: absolute;
-  right: 94px;
+  right: 40px;
   opacity: 60%;
 }
 
