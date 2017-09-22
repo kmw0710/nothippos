@@ -51,7 +51,7 @@ app.use('/api', router);
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }), function(req, res) {
+  passport.authenticate('facebook', { failureRedirect: '/' }), function(req, res) {
     var sessData = req.session.passport;
   	res.redirect('/#/home')
   });
