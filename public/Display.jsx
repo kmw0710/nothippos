@@ -1,4 +1,9 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
 export default class Displayed extends React.Component {
   constructor(props) {
@@ -17,7 +22,9 @@ export default class Displayed extends React.Component {
   render() {
     return (
       <div>
-          <h4 onClick={this.changeValue}>{this.props.city.locationName}</h4>
+          <Link to={`/home/edit`}>
+            <h4 onClick={this.changeValue}>{this.props.city.locationName}</h4>
+          </Link>
       </div>
     )
   }

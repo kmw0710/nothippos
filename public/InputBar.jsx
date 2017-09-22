@@ -72,7 +72,9 @@ export default class InputBar extends React.Component {
     }
 
     let city = this.props.currentCities.map((city, i) => {
-      return <Display city={city} currentCities={this.state.currentCities} key={i} idx={i} changeCurrentEditCity={this.props.changeCurrentEditCity}/>
+      return (
+        <Display city={city} currentCities={this.state.currentCities} key={i} idx={i} changeCurrentEditCity={this.props.changeCurrentEditCity}/>
+       )
     });
     return ( 
       <Col sm={4} md={3}>

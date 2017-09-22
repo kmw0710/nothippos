@@ -2,6 +2,11 @@ import React from 'react';
 import EventDisplay from './EventDisplay.jsx';
 import { Col, Button } from 'react-bootstrap';
 import ToggleDisplay from 'react-toggle-display';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
 export default class CityEventEntryEditor extends React.Component {
   constructor(props) {
@@ -27,12 +32,16 @@ export default class CityEventEntryEditor extends React.Component {
     });
     return (
       <div className="currentCityEdit">
-        <h4> Current City: {this.props.currentEditCity.locationName} </h4>
-        <Button onClick={this.props.deleteCity}> Delete </Button>
+        <h4 className="currentCityName"> Current City: {this.props.currentEditCity.locationName} </h4>
+        <Link to={`/home`}>
+          <Button className="returnToTrip"> Return </Button>
+        </Link>
         <br/>
         <Button onClick={this.props.deleteCity}> Delete </Button>
         {events}
-        <Button onClick={this.props.createNewEvent}> Create New Event </Button> 
+
+        <Button className="createNewEventButton" onClick={this.props.createNewEvent}> Create New Event </Button>
+
       </div>
     )
   }
