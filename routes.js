@@ -34,24 +34,17 @@ router.get('/savedTrips', function(req, res) {
     })
 });
 
-// router.get('/deleteCity', function(req, res) {
-//   var session = req.session.passport;
-//   var cityName = req.query.cityName;
-//   var tripName = req.query.tripTag;
-//   // need to get user, tripName, city
-//   // delete entry from db
-//   // console.log('user', session.user.id, 'tag', tripName, 'cityName', cityName)
-//   City.find({'tag': tripName, 'cityName': cityName, 'user': session.user.id})
-//     .then((cityInfo) => {
-//         // console.log('cityInfo inside', cityInfo);
-//         City.remove({})
-//         console.log('city removed')
-//     })
-// });
-
-// router.get('/deleteCity', function(req, res) {
-//   City.find({'cityName': })
-// });
+router.get('/deleteCity', function(req, res) {
+  var session = req.session.passport;
+  var cityName = req.query.cityName;
+  var tripName = req.query.tripTag;
+  // console.log('user', session.user.id, 'tag', tripName, 'cityName', cityName)
+  City.remove({'tag': tripName, 'cityName': cityName, 'user': session.user.id}, function (error) {
+      if (error) {
+        console.log(error);
+      }
+  })
+});
 
 router.post('/saveNewTrip', function(req, res) {
   var session = req.session.passport;
