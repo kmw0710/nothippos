@@ -39,14 +39,13 @@ export default class InputBar extends React.Component {
   handleAddCity(event) {
     
     event.preventDefault();
-    console.log("is this working?", this.state.address);
+    console.log('Address: ', this.state.address);
     geocodeByAddress(this.state.address)
-      .then(results => { 
-        console.log('2', results);
+      .then(results => {
         return getLatLng(results[0]);
       })
       .then(latLng => {
-        console.log("is this messing up", latLng);
+        console.log('Latitude, Longitude: ', latLng);
         this.setState({
           latLng: latLng
         })
