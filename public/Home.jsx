@@ -179,7 +179,7 @@ export default class Home extends React.Component {
 
   tagClicked(clickedit) {
     axios({
-  method: "get",
+      method: "get",
       url: "/api/savedTrips",
       params:{
         tag: clickedit
