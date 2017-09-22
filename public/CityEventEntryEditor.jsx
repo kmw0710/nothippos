@@ -9,11 +9,9 @@ export default class CityEventEntryEditor extends React.Component {
     this.state = {
       show: false
     }
-
   }
 
   componentDidUpdate (prevProps, prevState) {
-    console.log(this.props.currentEditCity.events);
   }
 
   handleClick() {
@@ -22,22 +20,18 @@ export default class CityEventEntryEditor extends React.Component {
     });
   }
 
-
-
-
   render() {
-
     var events = [].concat(this.props.currentEditCity.events)
       .map((event, i) => {
       return <EventDisplay saveEvent={this.props.saveEvent} event={event} key={event.activityName.toString() + event.location.toString()} idx={i} />
     });
     return (
-
       <div className="currentCityEdit">
         <h4> Current City: {this.props.currentEditCity.locationName} </h4>
+        <Button onClick={this.props.deleteCity}> Delete </Button>
         <br/>
         {events}
-        <Button onClick={this.props.createNewEvent}> Create New Event </Button>
+        <Button onClick={this.props.createNewEvent}> Create New Event </Button> 
       </div>
     )
   }

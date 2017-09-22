@@ -28,6 +28,7 @@ export default class Home extends React.Component {
     this.createNewEvent = this.createNewEvent.bind(this);
     this.saveEvent = this.saveEvent.bind(this);
     this.changeCityMarkers = this.changeCityMarkers.bind(this);
+    this.deleteCity = this.deleteCity.bind(this);
   }
 
   changeCityMarkers (location, position) {
@@ -76,6 +77,19 @@ export default class Home extends React.Component {
       currentEditCity: tempCurrentEditCity
     })
     console.log(this.state.currentEditCity);
+  }
+
+  deleteCity() {
+    console.log(this.state, 'hi')
+    axios({
+      method: "get",
+      url: "/api/deleteCity",
+      params: {
+        cityName: this.state.currentCities.locationName,
+        tripTag: this.state.savedTags
+      }
+    })
+    console.log('hihihihi')
   }
 
   saveEvent (idx, activityName, date, time, location, notes) {
@@ -187,14 +201,17 @@ export default class Home extends React.Component {
       }
     })
     .then(res => {
-      console.log(res)
+      console.log(res, 'RES')
       var temp = [];
-      var tempObj = {};
       for (var i = 0; i < res.data.length; i++) {
-        tempObj.locationName = res.data.cityName;
-        tempObj.dateOfArrival = res.data.dateOfArrival;
-        tempObj.dateOfDeparture = res.data.dateOfDeparture;
-        temp.push(tempObj)
+        if (res.data[i].cityName !== undefined) {
+          var tempObj = {};
+          tempObj.locationName = res.data[i].cityName;
+          tempObj.dateOfArrival = res.data[i].dateOfArrival;
+          tempObj.dateOfDeparture = res.data[i].dateOfDeparture;
+          tempObj.events = res.data[i].events;
+          temp.push(tempObj)
+        }
       }
       this.setState({
         currentCities: temp,
@@ -210,7 +227,7 @@ export default class Home extends React.Component {
         <InputBar changeCityMarkers={this.changeCityMarkers} addCityToParent={this.addCity} addTagsToParent={this.addTags}
           saveNewTrips={this.saveNewTrips} currentCities={this.state.currentCities} changeCurrentEditCity={this.changeCurrentEditCity}
           />
-        <EditPlanDisplay cityMarkers={this.state.cityMarkers} saveEvent={this.saveEvent} createNewEvent={this.createNewEvent} savedTags={this.state.savedTags} tagClicked={this.tagClicked} currentEditCity={this.state.currentEditCity}/>
+        <EditPlanDisplay deleteCity={this.deleteCity} cityMarkers={this.state.cityMarkers} saveEvent={this.saveEvent} createNewEvent={this.createNewEvent} savedTags={this.state.savedTags} tagClicked={this.tagClicked} currentEditCity={this.state.currentEditCity}/>
       </div>
     )
   }
