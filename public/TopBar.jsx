@@ -50,7 +50,6 @@ class TopBar extends React.Component{
         <ul>
   			  <li onClick={this.createNewTrip}> <h4> Create New Trip </h4> </li>
   	   	  <li onClick={this.showSavedTags}> <h4> Saved Trip </h4> </li>
-  	      <li> <h4> Profile </h4> </li>
         </ul>
         <div className="hiddenTags">
           {savedTags}	

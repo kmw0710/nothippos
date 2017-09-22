@@ -5,6 +5,7 @@ import TopBar from './TopBar.jsx';
 import Hidden from './Hidden.jsx';
 import EditPlanDisplay from './EditPlanDisplay.jsx';
 import ShowCityTrip from './ShowCityTrip.jsx';
+import WebsiteName from './WebsiteName.jsx';
 import axios from 'axios';
 import querystring from 'querystring';
 import style from './style.css';
@@ -224,10 +225,12 @@ export default class Home extends React.Component {
 
     return (
       <div>
+        <WebsiteName/>
+
         <InputBar changeCityMarkers={this.changeCityMarkers} addCityToParent={this.addCity} addTagsToParent={this.addTags}
           saveNewTrips={this.saveNewTrips} currentCities={this.state.currentCities} changeCurrentEditCity={this.changeCurrentEditCity}
         />
-        <Route exact path={`/home/edit`} render={() => (
+                <Route exact path={`/home/edit`} render={() => (
           <EditPlanDisplay zoom={this.state.cityZoom} mapCenter={this.state.currentCityCenter} cityMarkers={this.state.cityMarkers} saveEvent={this.saveEvent} 
           createNewEvent={this.createNewEvent} savedTags={this.state.savedTags} 
           tagClicked={this.tagClicked} currentEditCity={this.state.currentEditCity}/>
@@ -237,6 +240,7 @@ export default class Home extends React.Component {
             tagClicked={this.tagClicked}
           />
         )}/>
+
           
 
         

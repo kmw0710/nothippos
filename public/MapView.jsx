@@ -14,7 +14,7 @@ const MapWithASearchBox = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?&v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDvgO7kKFpb6Fo9FHcFfAIIcO4HMERU1fU",
     loadingElement: <div style={{ height: `100%`, width: `20%` }} />,
-    containerElement: <div style={{ height: `300px`, width:`95%`, margin: `20px` }} />,
+    containerElement: <div style={{ height: `300px`, width:`100%`, margin: `20px` }} />,
     mapElement: <div style={{ height: `100%` }} />
   }),
   lifecycle({
@@ -77,30 +77,7 @@ const MapWithASearchBox = compose(
     onBoundsChanged={props.onBoundsChanged}
     >
 
-   <SearchBox
-      ref={props.onSearchBoxMounted}
-      bounds={props.bounds}
-      controlPosition={google.maps.ControlPosition.TOP_LEFT}
-      onPlacesChanged={props.onPlacesChanged}
-    >
-      <input
-        type="text"
-        placeholder="Enter Activity Location"
-        style={{
-          boxSizing: `border-box`,
-          border: `1px solid transparent`,
-          width: `240px`,
-          height: `32px`,
-          marginTop: `27px`,
-          padding: `0 12px`,
-          borderRadius: `3px`,
-          boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-          fontSize: `14px`,
-          outline: `none`,
-          textOverflow: `ellipses`,
-        }}
-      />
-    </SearchBox>
+
 
    {props.cityMarkers.map((marker, index) =>
       <Marker key={index} position={marker.position} />
