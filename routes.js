@@ -23,13 +23,16 @@ router.get('/tagList', function(req, res) {
 
 router.get('/savedTrips', function(req, res) {
   var session = req.session.passport;
-  console.log('session user', session.user.id)
   var seek = req.query.tag
   City.find({'tag': seek, 'user': session.user.id})
     .then(result => {  
       res.send(result)
     })
 });
+
+// router.get('/deleteCity', function(req, res) {
+//   City.find({'cityName': })
+// });
 
 router.post('/saveNewTrip', function(req, res) {
   let err;
