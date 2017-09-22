@@ -10,33 +10,50 @@ var bodyParser = require('body-parser')
 //   res.redirect('/#/');
 // });
 
+
+
 router.get('/login',function(req, res) {
-  res.redirect('/#/login');
+  res.redirect('/#/login'); 
 });
 
 router.get('/tagList', function(req, res) {
-  User.find({'user': req.session.passport.user.id})
+  var session = req.session.passport;
+  User.find({'user': session.user.id})
     .then(result => {
       res.send(result[0].tripTags)
     })
 });
 
-router.get('/savedTrips', function(req, res) {
-  var session = req.session.passport;
+router.get('/savedTrips', function(req, res) { 
+  var session = req.session.passport; 
   var seek = req.query.tag
   City.find({'tag': seek, 'user': session.user.id})
     .then(result => {  
-      res.send(result)
+      res.send(result) 
     })
 });
 
-// router.get('/deleteCity', function(req, res) {
-//   City.find({'cityName': })
-// });
+router.get('/deleteCity', function(req, res) {
+  var session = req.session.passport;
+  var cityName = req.query.cityName;
+  var tripName = req.query.tripTag;
+  // need to get user, tripName, city
+  // delete entry from db
+  console.log('HEREEEEE')
+  City.find({'tripName': tripName, 'cityName': cityName, 'user': session.user.id})
+    .then((error, cityInfo) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(cityInfo);
+        // res.send(cityInfo); 
+      }
+    })
+});
 
 router.post('/saveNewTrip', function(req, res) {
-  let err;
   var session = req.session.passport;
+  let err;
 
   req.body.currentCities.forEach((city) => {
       City.create({
