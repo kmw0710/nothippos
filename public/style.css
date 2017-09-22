@@ -14,6 +14,7 @@
 .topBar li {
     float: left;
     margin-right: 25px;
+    margin-top: 10px;
 }
 
 .topBar li:hover {
@@ -28,6 +29,8 @@
   text-align: left;
   background-color: lightgrey;
   height: 200vh;
+  clear: left;
+  clear: right;
 }
 
 .inputBar input {
@@ -57,6 +60,7 @@
   background-color: lightgrey;
   position: absolute;
   right: 110px;
+  opacity: 60%;
 }
 
 .editEvent:hover {
@@ -75,7 +79,6 @@
   padding-bottom: 10px;
 
 }
-<<<<<<< 8f9fc4f24d32cc4993cf1f48ab9159140d38b5bd
 
 .returnToTrip {
   float: right;
