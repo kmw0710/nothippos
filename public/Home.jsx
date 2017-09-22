@@ -6,6 +6,7 @@ import Hidden from './Hidden.jsx';
 import EditPlanDisplay from './EditPlanDisplay.jsx';
 import axios from 'axios';
 import querystring from 'querystring';
+import style from './style.css';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export default class Home extends React.Component {
       currentEditCity: {
         events: []
       },
-      savedTags: ['hi', 'hello'],
+      savedTags: [],
       cityMarkers: []
     }
     this.addCity = this.addCity.bind(this);
@@ -61,7 +62,7 @@ export default class Home extends React.Component {
 
   createNewEvent () {
     var newEvent = {
-      activityName: '',
+      activityName: 'Click To Edit New Event',
       date: '',
       time: '',
       location: '',

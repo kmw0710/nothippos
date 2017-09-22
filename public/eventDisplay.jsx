@@ -1,4 +1,6 @@
 import React from 'react';
+import ToggleDisplay from 'react-toggle-display';
+import { Col, Button } from 'react-bootstrap';
 
 export default class EventDisplay extends React.Component {
   constructor(props) {
@@ -8,7 +10,8 @@ export default class EventDisplay extends React.Component {
       date: '',
       time: '',
       location: '',
-      notes: ''
+      notes: '',
+      show: true
 
     }
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -19,11 +22,17 @@ export default class EventDisplay extends React.Component {
   componentDidMount() {
     this.setState({
       activityName: this.props.event.activityName,
-      date: '',
-      time: '',
-      location: '',
-      notes: '',
+      date: this.props.event.date,
+      time: this.props.event.time,
+      location: this.props.event.location,
+      notes: this.props.event.notes,
     })
+  }
+
+  handleClick() {
+    this.setState({
+      show: !this.state.show
+    });
   }
 
   handleInputChange(event) {
@@ -38,12 +47,28 @@ export default class EventDisplay extends React.Component {
   handleSaveEvent(event) {
     event.preventDefault();
     this.props.saveEvent(this.props.idx, this.state.activityName, this.state.date, this.state.time, this.state.location, this.state.notes);
+    this.setState({
+      show: !this.state.show
+    });
   }
 
 
   render() {
     return (
       <div>
+        <ToggleDisplay  show={this.state.show}>
+          <div className="eventView">
+          <h3 onClick={ () => this.handleClick() } className="editEvent"> {this.state.activityName} </h3>
+          <h5> <b>{this.state.date} </b> <small> {this.state.time} </small>  </h5>
+          <h5> {this.state.location}  </h5>
+          <p> {this.state.notes} </p>
+          </div>
+        </ToggleDisplay>
+          
+
+
+
+        <ToggleDisplay if={!this.state.show} tag="section">
         <form >
           <label>
             Activity Name: 
@@ -52,27 +77,27 @@ export default class EventDisplay extends React.Component {
           <br/>
           <label>
             Date: 
-            <input type="text" name="date" defaultValue={this.props.event.date} onChange={this.handleInputChange}/> 
+            <input type="text" name="date" value={this.state.date} onChange={this.handleInputChange}/> 
           </label>
           <br/>
           <label>
             Time: 
-            <input type="text" name="date" defaultValue={this.props.event.time} onChange={this.handleInputChange}/> 
+            <input type="text" name="time" value={this.state.time} onChange={this.handleInputChange}/> 
           </label>
           <br/>
           <label>
             Location: 
-            <input type="text" name="location" defaultValue={this.props.event.location} onChange={this.handleInputChange}/> 
+            <input type="text" name="location" value={this.state.location} onChange={this.handleInputChange}/> 
           </label>
           <br/>
           <label>
             Notes: 
-            <input type="text" name="notes" defaultValue={this.props.event.notes} onChange={this.handleInputChange}/> 
+            <input type="text" name="notes" value={this.state.notes} onChange={this.handleInputChange}/> 
           </label>
           <br/>
-          <button onClick={this.handleSaveEvent}> Save Trip </button>
+          <Button onClick={this.handleSaveEvent}> Save Event </Button>
         </form>
-        <br/>
+        </ToggleDisplay>
         <br/>
       </div>
     )

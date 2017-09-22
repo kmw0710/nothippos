@@ -1,6 +1,6 @@
 import React from 'react';
 import Display from './Display.jsx';
-import { Col } from 'react-bootstrap';
+import { Col, Button } from 'react-bootstrap';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng, geocodeByPlaceId } from 'react-places-autocomplete';
 
 export default class InputBar extends React.Component {
@@ -50,7 +50,7 @@ export default class InputBar extends React.Component {
         this.setState({
           latLng: latLng
         })
-        console.log('Success', latLng)
+        this.props.addTagsToParent(this.state.tripName);
       })
       .then(()=>{
         this.props.addCityToParent(this.state.address, this.state.dateOfArrival, this.state.dateOfDeparture, this.state.latLng);
@@ -76,45 +76,56 @@ export default class InputBar extends React.Component {
       return <Display city={city} currentCities={this.state.currentCities} key={i} idx={i} changeCurrentEditCity={this.props.changeCurrentEditCity}/>
     });
     return ( 
-      <Col sm={5} md={4}>
-        <div>
-         <h2>Input Bar</h2>
+      <Col sm={4} md={3}>
+        <div className="inputBar">
+        <h3>Input Bar</h3>
+        <br/>
          <form onSubmit={this.state.handleAddCity}>
           <label>
-            Trip Name: 
             <input type="text" name="tripName" value={this.state.tripName} onChange={this.handleInputChange}/> 
+            <br/>
+            Trip Name
           </label>
           <br/>
-          <input type="submit" value="Create" onClick={this.handleAddTripName}/>
         </form>
         <br/>
         <br/>
 
         <form >
           <label>
-            Location: 
-            <PlacesAutocomplete inputProps={inputProps} type="text" name="locationName" value={this.state.locationName} onChange={this.handleInputChange}/> 
+            
+            <PlacesAutocomplete  inputProps={inputProps} type="text" name="locationName" value={this.state.locationName} onChange={this.handleInputChange}/> 
+            Location 
           </label>
           <br/>
           <br/>
           <label>
-            Date of Arrival: 
+             
             <input type="text" name="dateOfArrival" value={this.state.dateOfArrival} onChange={this.handleInputChange}/> 
+            <br/>
+            Date of Arrival
           </label>
           <br/>
-          <br/>
-          <label>
-            Date of Departure: 
+          <label> 
             <input type="text" name="dateOfDeparture" value={this.state.dateOfDeparture} onChange={this.handleInputChange}/> 
+            <br/>
+            Date of Departure
           </label>
           <br/>
-          <input type="submit" value="Add" action="#" onClick={this.handleAddCity} />
+          
         </form>
-        {city}
+        
         <form>
-          <button type="Submit" onClick={(event) => {
+        <div  className="inputButton">
+        <Button type="submit" value="Add" action="#" onClick={this.handleAddCity}>Add</Button>
+        <Button type="Submit" onClick={(event) => {
             this.props.saveNewTrips()
-          }}>Save</button>
+          }}>Save</Button>
+        <br/>
+        {city}
+        <br/>
+ 
+          </div>
         </form>
       </div>
     </Col>

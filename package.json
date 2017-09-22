@@ -26,6 +26,7 @@
     "react-google-maps": "^8.3.0",
     "react-places-autocomplete": "^5.4.3",
     "react-router-dom": "^4.2.2",
+    "react-toggle-display": "^2.2.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "webpack": "^3.6.0"
@@ -35,5 +36,9 @@
     "app"
   ],
   "author": "Hippos",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^0.28.7",
+    "style-loader": "^0.18.2"
+  }
 }
