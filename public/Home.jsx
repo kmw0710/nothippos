@@ -28,6 +28,7 @@ export default class Home extends React.Component {
     this.createNewEvent = this.createNewEvent.bind(this);
     this.saveEvent = this.saveEvent.bind(this);
     this.changeCityMarkers = this.changeCityMarkers.bind(this);
+    this. deleteCity = this.deleteCity.bind(this);
   }
 
   changeCityMarkers (location, position) {
@@ -178,6 +179,18 @@ export default class Home extends React.Component {
     this.state.savedTags.push(tag);
   }
 
+  deleteCity(clicked) {
+    axios({
+      method: "get",
+      url: "/api/deleteCity",
+      params: {
+        cityName: this.state.currentCities.locationName,
+        tripTag: this.state.savedTags
+      }
+    })
+    console.log('sent!!')
+  }
+
   tagClicked(clickedit) {
     axios({
       method: "get",
@@ -210,7 +223,7 @@ export default class Home extends React.Component {
         <InputBar changeCityMarkers={this.changeCityMarkers} addCityToParent={this.addCity} addTagsToParent={this.addTags}
           saveNewTrips={this.saveNewTrips} currentCities={this.state.currentCities} changeCurrentEditCity={this.changeCurrentEditCity}
           />
-        <EditPlanDisplay cityMarkers={this.state.cityMarkers} saveEvent={this.saveEvent} createNewEvent={this.createNewEvent} savedTags={this.state.savedTags} tagClicked={this.tagClicked} currentEditCity={this.state.currentEditCity}/>
+        <EditPlanDisplay deleteCity={this.deleteCity} cityMarkers={this.state.cityMarkers} saveEvent={this.saveEvent} createNewEvent={this.createNewEvent} savedTags={this.state.savedTags} tagClicked={this.tagClicked} currentEditCity={this.state.currentEditCity}/>
       </div>
     )
   }
