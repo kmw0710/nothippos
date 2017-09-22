@@ -55,7 +55,7 @@ export default class EventDisplay extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="eventDisplay">
         <ToggleDisplay  show={this.state.show}>
           <div className="eventView">
           <h3 onClick={ () => this.handleClick() } className="editEvent"> {this.state.activityName} </h3>

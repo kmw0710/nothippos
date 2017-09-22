@@ -14,6 +14,7 @@
 .topBar li {
     float: left;
     margin-right: 25px;
+    margin-top: 10px;
 }
 
 .topBar li:hover {
@@ -28,6 +29,8 @@
   text-align: left;
   background-color: lightgrey;
   height: 200vh;
+  clear: left;
+  clear: right;
 }
 
 .inputBar input {
@@ -52,11 +55,12 @@
 .hiddenTags {
   float: right;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 54px;
   z-index: 3;
   background-color: lightgrey;
   position: absolute;
-  right: 110px;
+  right: 94px;
+  opacity: 60%;
 }
 
 .editEvent:hover {
@@ -73,5 +77,48 @@
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
-
 }
+
+.eachCity {
+  padding: 12px;
+}
+
+.allCity {
+  margin-top: 2%;
+  padding-left: 5%;
+  margin-left: 5%;
+}
+
+.returnToTrip {
+  float: right;
+}
+
+.currentCityName {
+  float: left;
+}
+
+.createNewEventButton {
+  margin-top: 50px;
+  clear: left;
+  clear: right;
+}
+
+.eventDisplay {
+  clear: left;
+  clear: right;
+  margin-top: 20px;
+}
+
+.arrow {
+  height: 20px;
+  width: auto;
+  margin-left: 70px; 
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.websiteName {
+  padding-left: 46px;
+  clear: right;
+}
+
