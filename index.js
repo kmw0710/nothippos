@@ -63,7 +63,7 @@ app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
 
-const port = 3000;
+const port = 8080;
 
 app.listen(port, function() {
   console.log(`Server running, listening on ${port}...`);	
